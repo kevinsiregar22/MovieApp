@@ -21,7 +21,7 @@ export default function Recommended({navigation}) {
 
   const getListMovie = async () => {
     try {
-      const results = await axios.get(`${baseUrl}/movie/upcoming`, {
+      const results = await axios.get(`${baseUrl}/movie/popular`, {
         headers: {
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
@@ -44,8 +44,8 @@ export default function Recommended({navigation}) {
         <Image
           source={{uri: `${imageUrl}${item.poster_path}`}}
           style={{
-            height: moderateScale(140),
-            width: moderateScale(100),
+            height: moderateScale(180),
+            width: moderateScale(120),
             borderRadius: 10,
             resizeMode: 'cover',
           }}

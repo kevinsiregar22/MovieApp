@@ -1,13 +1,14 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import Recommended from './Recomended';
-import Latest from './Latest';
+//screens
+import Recommended from '../Home/Recomended';
+import Latest from '../Home/Latest';
 
-export default function Index() {
+export default function Index({navigation}) {
   return (
     <View>
       <Recommended />
-      <Latest />
+      <Latest navigation={navigation} />
     </View>
   );
 }

@@ -11,8 +11,7 @@ import axios from 'axios';
 import {baseUrl, ACCESS_TOKEN, imageUrl} from '../../helpers/apiAccesToken';
 import {useState, useEffect} from 'react';
 import {moderateScale} from 'react-native-size-matters';
-
-export default function Latest({navigation}) {
+export default function Latest({navigation, props, route}) {
   const [listMovie, setListMovie] = useState([]);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ export default function Latest({navigation}) {
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       });
-      console.log(results);
       setListMovie(results.data.results);
     } catch (error) {
       console.log(error);
@@ -38,24 +36,25 @@ export default function Latest({navigation}) {
       <View
         style={{
           flexDirection: 'row',
-          alignItems: 'center',
-          padding: 10,
-          marginHorizontal: 10,
+          padding: moderateScale(10),
         }}>
         <Image
           source={{uri: `${imageUrl}${item.poster_path}`}}
           style={{
-            height: moderateScale(120),
-            width: moderateScale(100),
+            height: moderateScale(200),
+            width: moderateScale(150),
             borderRadius: 10,
             resizeMode: 'cover',
           }}
         />
         <View style={{flex: 1, marginLeft: 20}}>
           <Text style={styles.titleMovie}>{item.title}</Text>
-          <Text style={styles.detail}>Released : {item.release_date}</Text>
-          <Text style={styles.detail}>Rating : {item.vote_average}</Text>
-          <Text style={styles.detail}>genre : {item.vote_average}</Text>
+          <Text style={styles.detailItem}>Released : {item.release_date}</Text>
+          <Text style={styles.detailItem}>Rating : {item.vote_average}</Text>
+          <Text style={styles.detailItem}>
+            language : {item.original_language}
+          </Text>
+          <Text style={styles.detailItem}>vote count : {item.vote_count}</Text>
 
           <TouchableOpacity
             onPress={() =>
@@ -71,7 +70,7 @@ export default function Latest({navigation}) {
 
   return (
     <View style={styles.background}>
-      <Text style={styles.title}>Latest Upload</Text>
+      <Text style={styles.titleFirst}>Latest Upload</Text>
       <FlatList
         data={listMovie}
         keyExtractor={(item, index) => index}
@@ -85,8 +84,8 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: 'gray',
   },
-  title: {
-    fontSize: moderateScale(18),
+  titleFirst: {
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
     marginVertical: moderateScale(10),
     marginLeft: moderateScale(15),
@@ -96,24 +95,25 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontWeight: 'bold',
     color: '#FFFFFF',
+    flex: 1,
+    paddingBottom: moderateScale(10),
   },
-  detail: {
-    fontSize: moderateScale(12),
+  detailItem: {
+    fontSize: moderateScale(14),
     color: '#FFFFFF',
+    flex: 1,
+    marginTop: moderateScale(-20),
   },
   opacityText: {
     fontSize: moderateScale(16),
     textAlign: 'center',
-    margin: moderateScale(10),
     color: '#fff',
     fontWeight: 'bold',
+    paddingTop: 20,
   },
   buttonOpacity: {
-    backgroundColor: '#649DFF',
-    paddingLeft: moderateScale(10),
-    paddingRight: moderateScale(10),
-    marginTop: moderateScale(10),
-    width: moderateScale(150),
-    borderRadius: 10,
+    backgroundColor: '#154c79',
+    borderRadius: 15,
+    flex: 1,
   },
 });
